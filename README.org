@@ -3,7 +3,8 @@
 
 * Description of files:
 
-1. In the .R file =AB-SFC model_Multiplicity and not necessarily heterogeneity_implications...=, there is the code regarding the AB-SFC model with the parameter setup used to produce the results in Section 3 (Figure 2-5);
+1. In the file =main.R=, there is the code regarding the AB-SFC model with the parameter setup used to produce the results in Section 3 (Figure 2-5);
+   + *Original name:* =AB-SFC model_Multiplicity and not necessarily heterogeneity_implications...R=
 2. File .R =Figure 2-5= contains the code to reproduce figures 2,3 and 5;
 3. File .R =Empirical Validation_Part1= contains the code to reproduce the dataset =crossandautocorrelationsmultivariate=;
 4. File .R =Empirical Validation_Part2= contains the code to reproduce figures 6,7 and 8;
