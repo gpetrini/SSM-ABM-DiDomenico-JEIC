@@ -1091,39 +1091,16 @@ for (mc in 1:MC) {
     # realconsumptiondemand[]=0
     residualconsumpiondemand[]=0
     residualcapitaldemand[]=0
-    #  lrequired[]=0
-    #  labordemand[]=0
-    #demandperfirmcapital[]=0
     esaurimentoK[]=2
     esaurimento[]=2
-    # k_de[]=0
-    # profit[]=0
-    #  profit_fe[]=0
     currentcost[]=0
     indexF[]=NA
-    #  wb[]=0
-    #  div[]=0
     divpercap[]=0
     situaindexF[]=0
     situaindexFK[]=2
-    #nominalconsumptionexpenditure[]=0
     residualnominalconsumptiondemand[]=0
-    #   ammortamento[]=0
     nominalresidualconsumptiondemand[]=0
-    #realconsumptiondemand[]=0
-    #nominalconsumptiondemand[]=0
-    #indexC[]=NA
-    #indexFK[]=NA
-    
-    #dinero[]=0
-    
-    #Taylor rule
-    # if(t>20){
-    # intrate[t]=t1*inttarget+t2*intrate[t-1]+t3*(inflazione[t-1]-inflazionetarget)
-    # intrateshort[t]=intrate[t]
-    # }
-    
-    
+
     # fissazione del salari nominale aggregato 
     if(t>1){
       wageaggregate[t]=wageaggregate[t-1]*(1+sens*(U[t-1]/UN))
@@ -1495,10 +1472,7 @@ for (mc in 1:MC) {
         }
         
         
-        # 
         kd[t,(NFK+1):NF]=pmax(0,gamma*(k_de[t,(NFK+1):NF]-capfuturo[t,(NFK+1):NF]))
-        #kd[t,(NFK+1):NF]=ifelse((kd[t,(NFK+1):NF]+capfuturo[t,(NFK+1):NF])*x[(NFK+1):NF]<q_dn[t,(NFK+1):NF],round(q_dn[t,(NFK+1):NF]/x[(NFK+1):NF]-capfuturo[t,(NFK+1):NF],4), kd[t,(NFK+1):NF])
-        # 
         uefuturo[t,(NFK+1):NF]=ifelse(q_dn[t,(NFK+1):NF]==0,0,q_dn[t,(NFK+1):NF]/(capfuturo[t,(NFK+1):NF]*x[(NFK+1):NF]))
         uefuturo[t,(NFK+1):NF]=ifelse(is.infinite(uefuturo[t,(NFK+1):NF])==TRUE,1,uefuturo[t,(NFK+1):NF])
         
@@ -1513,8 +1487,7 @@ for (mc in 1:MC) {
         
         
         u_med[t,(NFK+1):NF]=ualfa[(NFK+1):NF]*ue_f[t,(NFK+1):NF]+(1-ualfa[(NFK+1):NF])*u_med[t-1,(NFK+1):NF]
-        # kd[t,(NFK+1):NF]=ifelse(u_med[t,(NFK+1):NF]>u_n & uefuturo[t,(NFK+1):NF]>u_n,round(pmax(0,k_de[t,(NFK+1):NF]-capfuturo[t,(NFK+1):NF]),4),(ifelse(capfuturo[t,(NFK+1):NF]*x[(NFK+1):NF]<q_dn[t,(NFK+1):NF],round(q_dn[t,(NFK+1):NF]/x[(NFK+1):NF]-capfuturo[t,(NFK+1):NF],4),0)))
-        
+
       }else{
         
         if(t==1){
@@ -1550,8 +1523,7 @@ for (mc in 1:MC) {
         
         kd[t,(NFK+1):NF]=pmax(0,gamma*(k_de[t,(NFK+1):NF]-capfuturo[t,(NFK+1):NF]))
         kd[t,(NFK+1):NF]=ifelse((kd[t,(NFK+1):NF]+capfuturo[t,(NFK+1):NF])*x[(NFK+1):NF]<q_dn[t,(NFK+1):NF],round(q_dn[t,(NFK+1):NF]/x[(NFK+1):NF]-capfuturo[t,(NFK+1):NF],4), kd[t,(NFK+1):NF])
-        #kd[t,(NFK+1):NF]=ifelse(u_med[t,(NFK+1):NF]>u_n && uefuturo[t,(NFK+1):NF]>u_n,round(pmax(0,k_de[t,(NFK+1):NF]-capfuturo[t,(NFK+1):NF]),4),(ifelse(capfuturo[t,(NFK+1):NF]*x[(NFK+1):NF]<q_dn[t,(NFK+1):NF],round(q_dn[t,(NFK+1):NF]/x[(NFK+1):NF]-capfuturo[t,(NFK+1):NF],4),0)))
-        
+
         
       }
     }
@@ -1567,7 +1539,6 @@ for (mc in 1:MC) {
           }else{
             q_e[t,i]=realsails[t-1,i] #*b+demandperfirmconsumer[t-2,i]*(1-b): dal terzo periodo#posso cambiarla e metterci quella in toward a benchmark model stigliz ecc
           }
-          #q_dn[t,i]=q_e[t,i]*(1+sigma)
           q_dn[t,i]=q_e[t,i]*(1+gex[t,i]*espe)*(1+sigma)
           k_de[t,i]=q_dn[t,i]/(u_n*x[i])
           
@@ -3103,9 +3074,7 @@ for (mc in 1:MC) {
       profit_fe[t,1:NF]=pmax(0,profit[t,1:NF])
       
       div[t,1:NF]=ifelse(bancarotta[t,1:NF]==0,pmin(cashF[1:NF],profit_fe[t,1:NF]*teta),0)
-      #div[t,i]=min(cashF[i],profit_fe[t,i])
       divpercap[1:NF]=ifelse(bancarotta[t,1:NF]==0,div[t,1:NF]/capperfirm,0)
-      #y_cap[t]=y_cap[t]+divpercap[i]
       cashF[1:NF]=cashF[1:NF]-div[t,1:NF]
       
       
@@ -3155,29 +3124,12 @@ for (mc in 1:MC) {
       if(t>1){
         yh[t,(Nwork+1):N]=yh[t,(Nwork+1):N]+divpercapB[t]+moneydeposit[t-1,(Nwork+1):N]*intratedeposit[t-1]+bondinterest[t-1]*BondDemand[t-1,(Nwork+1):N]
         yhd[t,(Nwork+1):N]=yh[t,(Nwork+1):N]*(1-taucap)
-        # V[t,(Nwork+1):N]=moneydeposit[t,(Nwork+1):N]+BondDemand[t-1,(Nwork+1):N]
-        # BondRepayed[t,(Nwork+1):N]=BondDemand[t-1,(Nwork+1):N]  #momentaneamente ho messo che durano un periodo
-        # Liquidityend[t,(Nwork+1):N]=moneydeposit[t,(Nwork+1):N]+BondRepayed[t,(Nwork+1):N]
       }else{
         yh[t,(Nwork+1):N]=yh[t,(Nwork+1):N]+divpercapB[t]
         yhd[t,(Nwork+1):N]=yh[t,(Nwork+1):N]*(1-taucap)
       }
       
       
-      
-      # for(i in (Nwork+1):N){
-      #   
-      #   if(t>1){
-      #   yh[t,i]=yh[t,i]+divpercapB[t]+moneydeposit[t-1,i]*intratedeposit[t-1]+bondinterest[t-1]*BondDemand[t-1,i]
-      #   yhd[t,i]=yh[t,i]*(1-taucap)
-      #   V[t,i]=moneydeposit[t,i]+BondDemand[t-1,i]
-      #   BondRepayed[t,i]=BondDemand[t-1,i]  #momentaneamente ho messo che durano un periodo
-      #   Liquidityend[t,i]=moneydeposit[t,i]+BondRepayed[t,i]
-      #   }else{
-      #   yh[t,i]=yh[t,i]+divpercapB[t]
-      #   yhd[t,i]=yh[t,i]*(1-taucap)
-      #   }
-      # }
     }
     
     
@@ -3206,17 +3158,7 @@ for (mc in 1:MC) {
     valueinv[t,(NFK+1):NF]=inv[t,(NFK+1):NF]*unitcost[t,(NFK+1):NF]
     NW[t,(NFK+1):NF]=ammresiduo[t,(NFK+1):NF]+cashF[(NFK+1):NF]-stockdebtF[t,(NFK+1):NF]+valueinv[t,(NFK+1):NF]
     
-    # 
-    # for(i in 1:NF){
-    #  if(i<=NFK){
-    #     NW[t,i]=cashF[i]-stockdebtF[t,i] #se considero le inventories dovrei differenziare tra le inventoires prodotto perche  produco piu del desiderato e le inventories come working progess, per evitare problemi non le metto 
-    #   }else{
-    #     valueinv[t,i]=inv[t,i]*unitcost[t,i]
-    #     NW[t,i]=ammresiduo[t,i]+cashF[i]-stockdebtF[t,i]+valueinv[t,i]
-    #   }
-    # }
-    # 
-    
+
     
     #modificare: mettere il bail out    
     
@@ -3255,27 +3197,8 @@ for (mc in 1:MC) {
     
     
     # Ricchezza privata
-    #if(t>1){
-    #V_cap[t]=y_hcap[t-1]-Cef_cap[t]+BondDemand_cap[t-1]+Moneydeposit_cap[t-1]
-    #BondRepayed_cap[t]=BondDemand_cap[t-1]  #momentaneamente ho messo che durano un periodo
-    #Liquidityend_cap[t]=y_hcap[t-1]-Cef_cap[t]+Moneydeposit_cap[t-1]+BondRepayed_cap[t]
-    #}
-    #if(V_cap[t]<0){
-    #  print("problemVcap")
-    #}
+
     
-    
-    #if(t>1){
-    # V_worker[t]=y_hw[t]-Cef_w[t]+Moneydeposit_worker[t-1]
-    #Liquidityend_worker[t]=y_hw[t]-Cef_w[t]+Moneydeposit_worker[t-1]
-    #}else{
-    #V_worker[t]=y_hw[t]-Cef_w[t]
-    #Liquidityend_worker[t]=y_hw[t]-Cef_w[t]
-    #}
-    #if(V_worker[t]<0){
-    #  print("problemVworker")
-    #  print(t)
-    #}
     #domanda di bond dei capitalsti, con tasso d interesse esogeno e residuo acquistato dalla BC
     
     
@@ -3382,12 +3305,7 @@ for (mc in 1:MC) {
     
     
     BondDemand_cap[t]=sum(BondDemand[t,which(codclass[]==1)])
-    # if(t>1){
-    #   deltaAdvances[t]=Advances[t]-Advances[t-1]
-    # }else{
-    #   deltaAdvances[t]=Advances[t] 
-    # }
-    
+
     # bond residui acquistati dalla banca centrale 
     BuyBond_CB[t]=bond[t]-BondDemand_cap[t]
     if(round(BuyBond_CB[t],4)<0){
@@ -3436,34 +3354,7 @@ for (mc in 1:MC) {
     }else{
       CFB[t]=sum(servicedebtFtot[t,])-LoanBDemand[t]+deltaDeposit[t]++sum(restituzioneparziale[t,])
     }
-    #if(CFB[t]<0){
-    # if(t>1){
-    #Advances[t]=Advances[t-1]-CFB[t]  #LoanBDemand[t]-servicedebtFtot[t]-deltaDeposit[t]
-    #}else{
-    #  Advances[t]=-CFB[t]
-    #}
-    #}
-    
-    
-    #calcolo dei marketshare realizzati ndalle imprese capital
     totalrealsailsK=sum(realsails[t,which(cod==0)])
-    
-    
-    
-    # for(i in 1:NFK){
-    # marketshare[t,i]=realsails[t,i]/totalrealsailsK   #vedere come cambia se metto la domanda ricevuta invece delle vendite
-    # if(is.nan(marketshare[t,i])==TRUE){
-    #   marketshare[t,i]=0
-    #}
-    # ratiomarketshare[t,i]=marketshare[t,i]/((1-realsails[t,i]/totalrealsailsK)/(NFK-1))
-    # if(is.nan(ratiomarketshare[t,i])==TRUE){
-    #   ratiomarketshare[t,i]=0
-    #  }
-    #  }
-    # yc[t,mc]=sum(y[t,which(cod==1)])
-    #def_yc[t]=saldosecondario[t]/yc[t]
-    #deb_yc[t,mc]=stockdebtG[t]/(sum(realsails[t,which(cod==1)]))
-    
     
     
     percbondcap[t]=BondDemand_cap[t]/stockdebtG[t]
