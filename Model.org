@@ -1,0 +1,64 @@
+#+title: Multiplicity and not necessarily heterogeneity: implications for the long run degree of capacity utilization
+#+author: Lorenzo Di Domenico
+#+date: 2023
+#+description: Commented and recoded by Gabriel Petrini
+
+* Main code and simulation
+:PROPERTIES:
+  :header-args: R :noweb-ref src-main :exports none :noweb yes :tangle ./code/main.R
+  :END:
+
+** Packages installation, garbage collection, and setting seed
+
+#+begin_src R
+for(p in requiredPackages){
+  if(!require(p,character.only = TRUE)) install.packages(p)
+  library(p,character.only = TRUE)
+}
+
+rm(list=ls())
+RNGkind(kind = NULL, normal.kind = NULL, sample.kind = "Rejection")
+#+end_src
+
+** Global values and initializing matrices
+
+#+begin_src R
+eterogeneita=0#se 1 c'è ETEORGENITà NELLe aspettative
+sceltastocastica=1#se 1 è stocasstico
+sceltastocasticaK=1 # SE 1 LA SCLTA DI K è STOCASTICA
+equaldistribution=0
+
+# Parametri per analisi multivariata #####
+npar=20
+Nv=1
+Nphi=1
+Nx=1
+Nlim=1
+Nz=1
+Ndk=1
+Nperc=1
+Nqex=1
+Nbeta=1
+Nwgov=1
+Nflex=1
+Nint=1
+Ngpub=1
+Nparcons=1
+Nswic=1
+Numin=1
+NNF=1
+nhmese=1
+nprobex=1
+ncomb=Nv*Nphi*Nlim*Nz*Ndk*Nperc*Nqex*Nbeta*Nwgov*Nflex*Nint*Ngpub*Nparcons*Nswic*Numin*NNF*nhmese*nprobex*Nx
+
+T=900
+MC=1
+ygeneral=matrix(data=0, nrow=T, ncol=2)
+stockG=matrix(data=0,nrow=T,ncol=2)
+GDPreale=matrix(data=0,nrow=T,ncol=MC)
+debpilgen=matrix(data=0,nrow=T,ncol=2)
+deb_yc=matrix(data=0, nrow=T, ncol=MC)
+yc=matrix(data=0, nrow=T, ncol=MC)
+#+end_src
+
+* Figures
