@@ -1,0 +1,20 @@
+#+title: Instructions to reproduce the paper results with R software
+#+author: Lorenzo Di Domenico
+
+* Description of files:
+
+1. In the .R file =AB-SFC model_Multiplicity and not necessarily heterogeneity_implications...=, there is the code regarding the AB-SFC model with the parameter setup used to produce the results in Section 3 (Figure 2-5);
+2. File .R =Figure 2-5= contains the code to reproduce figures 2,3 and 5;
+3. File .R =Empirical Validation_Part1= contains the code to reproduce the dataset =crossandautocorrelationsmultivariate=;
+4. File .R =Empirical Validation_Part2= contains the code to reproduce figures 6,7 and 8;
+5. File .RData =Data_Montecarlo_Figure2-5= is the dataset containing results with montecarlo simulations of the AB model and aggregate version;
+6. File .RData =crossandautocorrelationsmultivariate= contains the data on autocorrelations and crosscorrelations of GDP, investments and consumption computed for the multivariate analysis[fn::AC and CC are computed for each time-series of each parameter setup (30.000 runs).];
+7. File .RData =multivariateanalysis= contains the time-series of main macroeconomic variables of the multivariate analysis;
+8. File .R =Simulations and Appendix Figure 11= contains the code to reproduce figure 11
+
+* Instructions to reproduce results:
+
+- One run simulation of the baseline model: launch =AB-SFC model_Multiplicity and not necessarily heterogeneity_implications....RData=
+- Figures 2-5: Load =Data_Montecarlo_Figure2-5.RData= and launch file =Figure 2-5.R=
+- Figures 6-8: Load =crossandautocorrelationsmultivariate.RData= and launch file =Empirical_Validation_Part2.R=
+- Figure 11: Launch file =Simulations and Appendix Figure 11=
